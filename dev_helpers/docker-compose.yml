@@ -1,1 +1,24 @@
-//todo
+version: '3.7'
+
+networks:
+  grapefruit:
+    ipam:
+      config:
+        - subnet: 173.200.0.0/24
+
+services:
+  mongobd-grapefruit:
+    container_name: mongobd-grapefruit-dev
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=rootpassword
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      grapefruit:
+        ipv4_address: 173.200.0.10
+
+volumes:
+  mongo-data:
+    driver: local
