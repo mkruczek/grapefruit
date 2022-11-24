@@ -1,0 +1,3 @@
+{
+  "ConnectionString": "mongodb://root:rootpassword@173.200.0.10:27017"
+}
