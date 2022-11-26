@@ -1,5 +1,11 @@
 package config
 
 type MongoDB struct {
-	ConnectionString string
+	MODBConnectionString string
+}
+
+type ElasticSearchDS struct {
+	ESUrl      string
+	ESUsername string
+	ESPassword string
 }

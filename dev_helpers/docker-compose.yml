@@ -18,7 +18,23 @@ services:
     networks:
       grapefruit:
         ipv4_address: 173.200.0.10
+  elasticearch-grapefruit:
+    container_name: elasticearch-grapefruit-dev
+    image: elasticsearch:8.5.1
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - ELASTIC_USERNAME=devuser
+      - ELASTIC_PASSWORD=devpass
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      grapefruit:
+        ipv4_address: 173.200.0.11
 
 volumes:
   mongo-data:
+    driver: local
+  elasticsearch-data:
     driver: local
