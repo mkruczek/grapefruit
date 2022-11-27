@@ -1,7 +1,7 @@
 package recorder
 
 import (
-	"grapefruit/pkg/api"
+	"grapefruit/pkg/app/recorder/api"
 	"log"
 )
 
