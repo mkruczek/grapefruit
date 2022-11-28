@@ -10,6 +10,8 @@ type ViewerServer struct {
 
 type MongoDB struct {
 	MODBConnectionString string
+	MODBName             string
+	MODBCollection       string
 }
 
 type ElasticSearchDS struct {

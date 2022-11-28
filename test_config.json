@@ -1,5 +1,7 @@
 {
   "MODBConnectionString": "mongodb://root:rootpassword@173.200.0.10:27017",
+  "MODBName": "grapefruit",
+  "MODBCollection": "objects",
 
   "ESUrl": "http://173.200.0.11:9200",
   "ESUsername": "devuser",
