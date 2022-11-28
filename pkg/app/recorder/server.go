@@ -6,28 +6,28 @@ import (
 	"log"
 )
 
-type Server struct {
+type Service struct {
 	httpClient HttpClient
 	cfg        config.RecorderServer
 }
 
-func NewServer(cfgPath string) (Server, error) {
+func NewService(cfgPath string) (Service, error) {
 
 	cfg := config.NewProvider(cfgPath)
 	serverConfig, err := cfg.GetRecorderServer()
 	if err != nil {
-		return Server{}, err
+		return Service{}, err
 	}
 
-	hc := api.NewHttpController(serverConfig.RecorderServerHTTPPort)
+	hc := api.NewHttpServer(serverConfig.RecorderServerHTTPPort)
 	hc.SetRouters()
 
-	return Server{
+	return Service{
 		httpClient: hc,
 	}, nil
 }
 
-func (s Server) Start() {
+func (s Service) Start() {
 	log.Println("...starting server")
 
 	if err := s.httpClient.ListenAndServe(); err != nil {

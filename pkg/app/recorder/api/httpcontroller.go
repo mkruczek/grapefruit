@@ -2,18 +2,18 @@ package api
 
 import "github.com/gin-gonic/gin"
 
-type HttpController struct {
+type HttpServer struct {
 	server *gin.Engine
 	port   string
 }
 
-func NewHttpController(port string) HttpController {
-	return HttpController{
+func NewHttpServer(port string) HttpServer {
+	return HttpServer{
 		server: gin.Default(),
 		port:   port,
 	}
 }
 
-func (hc HttpController) ListenAndServe() error {
+func (hc HttpServer) ListenAndServe() error {
 	return hc.server.Run(hc.port)
 }
