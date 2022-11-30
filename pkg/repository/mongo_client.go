@@ -97,3 +97,24 @@ func (m MongoClient) DeleteObject(ctx context.Context, id uuid.UUID) error {
 
 	return nil
 }
+
+func (m MongoClient) UpdateObject(ctx context.Context, object model.Object) (model.Object, error) {
+	filter := bson.D{{"id", object.ID.String()}}
+
+	oByte, err := bson.Marshal(newMongoObjectFromModel(object))
+	if err != nil {
+		return model.Object{}, err
+	}
+
+	var update bson.M
+	err = bson.Unmarshal(oByte, &update)
+	if err != nil {
+		return model.Object{}, err
+	}
+
+	_, err = m.coll.UpdateOne(ctx, filter, bson.D{{Key: "$set", Value: update}})
+	if err != nil {
+		return model.Object{}, err
+	}
+	return object, nil
+}

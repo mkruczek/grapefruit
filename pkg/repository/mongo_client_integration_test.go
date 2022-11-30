@@ -14,11 +14,11 @@ func Test_MongoPingConnection(t *testing.T) {
 	}
 }
 
-func Test_MongoIntegration_Create_Get_Delete_Object(t *testing.T) {
+func Test_MongoIntegration_Create_Get_Update_Delete_Object(t *testing.T) {
 
 	ctx := context.Background()
 
-	//crete object
+	//crete
 	newObject := model.NewObject()
 	newObject.Name = "myName"
 	newObject.Value = 16
@@ -28,7 +28,7 @@ func Test_MongoIntegration_Create_Get_Delete_Object(t *testing.T) {
 		t.Fatalf("expected not error for adding object, got: %s", err)
 	}
 
-	//get object
+	//get
 	got, err := testMongoClient.GetObject(ctx, newObject.ID)
 	if err != nil {
 		t.Fatalf("expected not error for getting object, got: %s", err)
@@ -40,6 +40,26 @@ func Test_MongoIntegration_Create_Get_Delete_Object(t *testing.T) {
 
 	if !cmp.Equal(got, newObject, cmpOpt) {
 		t.Fatalf("got other object then stored")
+	}
+
+	//update
+	toUpdate := newObject
+	updateName := "updatedName"
+	toUpdate.Name = updateName
+	updatedValue := 34.2
+	toUpdate.Value = updatedValue
+	_, err = testMongoClient.UpdateObject(ctx, toUpdate)
+	if err != nil {
+		t.Fatalf("expected not error for updateing object, got: %s", err)
+	}
+
+	got, err = testMongoClient.GetObject(ctx, newObject.ID)
+	if err != nil {
+		t.Fatalf("expected not error for getting updated object, got: %s", err)
+	}
+
+	if got.Name != updateName || got.Value != updatedValue {
+		t.Errorf("updated object has wrong data.")
 	}
 
 	//delete
