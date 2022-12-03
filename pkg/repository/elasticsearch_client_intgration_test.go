@@ -12,7 +12,7 @@ func Test_ElasticsearchPingConnection(t *testing.T) {
 	}
 }
 
-func Test_ElasticSearchIntegration_Create_Index_Object(t *testing.T) {
+func Test_ElasticSearchIntegration_Insert_Object(t *testing.T) {
 
 	ctx := context.Background()
 
