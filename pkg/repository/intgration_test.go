@@ -2,10 +2,12 @@ package repository
 
 import (
 	"context"
+	"github.com/google/go-cmp/cmp"
 	"grapefruit/pkg/config"
 	"log"
 	"os"
 	"testing"
+	"time"
 )
 
 const (
@@ -16,6 +18,10 @@ var (
 	testMongoClient         MongoClient
 	testElasticSearchClient ElasticSearchClient
 )
+
+var cmpOpt = cmp.Comparer(func(x, y time.Time) bool {
+	return (x.Sub(y) > -time.Millisecond) && (x.Sub(y) < time.Millisecond)
+})
 
 func TestMain(m *testing.M) {
 

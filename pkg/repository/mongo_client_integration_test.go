@@ -5,7 +5,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"grapefruit/pkg/model"
 	"testing"
-	"time"
 )
 
 func Test_MongoPingConnection(t *testing.T) {
@@ -33,10 +32,6 @@ func Test_MongoIntegration_Create_Get_Update_Delete_Object(t *testing.T) {
 	if err != nil {
 		t.Fatalf("expected not error for getting object, got: %s", err)
 	}
-
-	cmpOpt := cmp.Comparer(func(x, y time.Time) bool {
-		return (x.Sub(y) > -time.Millisecond) && (x.Sub(y) < time.Millisecond)
-	})
 
 	if !cmp.Equal(got, newObject, cmpOpt) {
 		t.Fatalf("got other object then stored")
